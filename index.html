@@ -155,22 +155,13 @@ header h1{font-size:2rem}
 </div>
 
 <div class="chart-wrap">
-<div class="chart-title">Current Market Capitalization ($B) — February 2025</div>
-<div class="bar-chart">
-<div class="bar-row"><div class="bar-label">Verisk Analytics</div><div class="bar-container"><div class="bar data" style="width:85%"><span class="bar-value">$42.1B</span></div></div></div>
-<div class="bar-row"><div class="bar-label">IHS Markit*</div><div class="bar-container"><div class="bar data" style="width:90%"><span class="bar-value">$44B (acq.)</span></div></div></div>
-<div class="bar-row"><div class="bar-label">Wolters Kluwer</div><div class="bar-container"><div class="bar data" style="width:78%"><span class="bar-value">$38.5B</span></div></div></div>
-<div class="bar-row"><div class="bar-label">RELX (Elsevier)</div><div class="bar-container"><div class="bar data" style="width:100%"><span class="bar-value">$82.4B</span></div></div></div>
-<div class="bar-row"><div class="bar-label">CoStar Group</div><div class="bar-container"><div class="bar data" style="width:62%"><span class="bar-value">$30.8B</span></div></div></div>
-<div class="bar-row"><div class="bar-label">FDB / Zynx (private)</div><div class="bar-container"><div class="bar data" style="width:12%"><span class="bar-value">~$6B est.</span></div></div></div>
-<div class="bar-row"><div class="bar-label" style="height:8px;border-top:1px solid var(--border)"></div><div class="bar-container" style="height:8px;background:transparent"></div></div>
-<div class="bar-row"><div class="bar-label">NY Times Co</div><div class="bar-container"><div class="bar media" style="width:18%"><span class="bar-value">$8.9B</span></div></div></div>
-<div class="bar-row"><div class="bar-label">News Corp</div><div class="bar-container"><div class="bar media" style="width:22%"><span class="bar-value">$10.8B</span></div></div></div>
-<div class="bar-row"><div class="bar-label">Gannett</div><div class="bar-container"><div class="bar media" style="width:2%"><span class="bar-value">$0.8B</span></div></div></div>
-<div class="bar-row"><div class="bar-label">Lee Enterprises</div><div class="bar-container"><div class="bar media" style="width:1%"><span class="bar-value">$0.2B</span></div></div></div>
-<div class="bar-row"><div class="bar-label">Tribune Publishing*</div><div class="bar-container"><div class="bar media" style="width:1.2%"><span class="bar-value">$0.6B (acq.)</span></div></div></div>
-<div class="bar-row"><div class="bar-label">Meredith*</div><div class="bar-container"><div class="bar media" style="width:4.8%"><span class="bar-value">$2.7B (acq.)</span></div></div></div>
+<div class="chart-title">Market Capitalization Trajectories ($B) — 2005 to 2025</div>
+<canvas id="mcapChart" style="width:100%;max-height:420px"></canvas>
 </div>
+
+<div class="chart-wrap">
+<div class="chart-title">Sector Aggregate Market Cap ($B) — B2B Data vs Media</div>
+<canvas id="sectorChart" style="width:100%;max-height:360px"></canvas>
 </div>
 </section>
 
@@ -350,5 +341,40 @@ header h1{font-size:2rem}
 </footer>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+(function(){
+const years=['2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025'];
+const style=getComputedStyle(document.documentElement);
+const gridColor='rgba(42,42,58,0.6)';
+const tickColor='#8888a0';
+const tooltipBg='#1a1a25';
+const dataColors=['#00d4aa','#22c55e','#06b6d4','#14b8a6','#34d399','#10b981'];
+const mediaColors=['#6366f1','#a78bfa','#ef4444','#f59e0b','#fb923c','#e879f9'];
+
+// Individual company market cap data ($B, approximate trajectories)
+const companies=[
+{name:'RELX',data:[12,14,16,13,15,19,22,26,30,35,40,42,50,55,60,58,65,55,68,76,82.4],color:dataColors[0],sector:'data'},
+{name:'S&P Global',data:[8,10,11,9,10,14,16,20,26,32,38,42,55,60,65,82,100,95,110,125,138],color:dataColors[1],sector:'data',hidden:true},
+{name:'Verisk',data:[null,null,null,null,2,4,6,8,10,14,18,20,24,28,30,32,36,30,35,40,42.1],color:dataColors[2],sector:'data'},
+{name:'Wolters Kluwer',data:[6,7,8,7,8,10,11,13,15,17,20,22,25,28,30,32,35,30,33,36,38.5],color:dataColors[3],sector:'data'},
+{name:'CoStar',data:[1,1.5,2,1.5,2,3,4,5,7,9,11,13,16,19,22,28,35,25,28,30,30.8],color:dataColors[4],sector:'data'},
+{name:'NY Times',data:[3.5,3,2.5,1.5,1.2,1.5,1.2,1.4,2,2.5,2,2.2,3,3.5,4.5,7,8,6,7.5,8.5,8.9],color:mediaColors[0],sector:'media'},
+{name:'News Corp',data:[18,20,22,14,12,15,16,17,9,9.5,8,7,8,9,8,7,10,9,8.5,10,10.8],color:mediaColors[1],sector:'media'},
+{name:'Gannett',data:[8,7.5,7,4,3,4,5,4.5,5,5.5,5,4,3.5,3,2.5,1.5,1.2,1,0.9,0.8,0.8],color:mediaColors[2],sector:'media'},
+{name:'Lee Enterprises',data:[2.5,2,1.8,0.8,0.3,0.5,0.4,0.3,0.5,0.6,0.5,0.4,0.5,0.4,0.3,0.15,0.2,0.25,0.2,0.2,0.2],color:mediaColors[3],sector:'media'}
+];
+
+const baseOpts={responsive:true,animation:{duration:1800,easing:'easeOutQuart'},interaction:{mode:'index',intersect:false},plugins:{legend:{labels:{color:tickColor,usePointStyle:true,pointStyle:'circle',padding:14,font:{size:12}}},tooltip:{backgroundColor:tooltipBg,borderColor:'#2a2a3a',borderWidth:1,titleColor:'#e8e8f0',bodyColor:'#e8e8f0',padding:12,callbacks:{label:function(c){return c.dataset.label+': $'+c.parsed.y.toFixed(1)+'B'}}}},scales:{x:{grid:{color:gridColor},ticks:{color:tickColor,maxRotation:45,font:{size:11}}},y:{grid:{color:gridColor},ticks:{color:tickColor,callback:function(v){return '$'+v+'B'},font:{size:11}}}}};
+
+// Chart 1: Individual companies
+new Chart(document.getElementById('mcapChart'),{type:'line',data:{labels:years,datasets:companies.map(function(c){return{label:c.name,data:c.data,borderColor:c.color,backgroundColor:c.color+'18',borderWidth:2.5,pointRadius:0,pointHoverRadius:5,pointHoverBackgroundColor:c.color,tension:0.35,fill:false,hidden:!!c.hidden,spanGaps:true}})},options:Object.assign({},baseOpts,{plugins:Object.assign({},baseOpts.plugins,{legend:Object.assign({},baseOpts.plugins.legend,{position:'bottom'})})})});
+
+// Chart 2: Sector aggregates
+const dataAgg=years.map(function(_,i){return companies.filter(function(c){return c.sector==='data'&&c.data[i]!=null}).reduce(function(s,c){return s+c.data[i]},0)});
+const mediaAgg=years.map(function(_,i){return companies.filter(function(c){return c.sector==='media'}).reduce(function(s,c){return s+(c.data[i]||0)},0)});
+new Chart(document.getElementById('sectorChart'),{type:'line',data:{labels:years,datasets:[{label:'B2B Data Aggregate',data:dataAgg,borderColor:'#00d4aa',backgroundColor:'#00d4aa15',borderWidth:3,pointRadius:0,pointHoverRadius:6,pointHoverBackgroundColor:'#00d4aa',tension:0.35,fill:true},{label:'Traditional Media Aggregate',data:mediaAgg,borderColor:'#6366f1',backgroundColor:'#6366f115',borderWidth:3,pointRadius:0,pointHoverRadius:6,pointHoverBackgroundColor:'#6366f1',tension:0.35,fill:true}]},options:baseOpts});
+})();
+</script>
 </body>
 </html>
