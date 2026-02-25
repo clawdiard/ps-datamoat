@@ -103,6 +103,28 @@ footer{padding:32px 0;text-align:center;color:var(--text-dim);font-size:.8rem}
 .legend-dot.data-dot{background:var(--accent)}
 .legend-dot.media-dot{background:var(--accent2)}
 
+/* Deep Dive Tabs */
+.deep-dive-tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.dd-tab{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 20px;color:var(--text-dim);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .3s}
+.dd-tab:hover{border-color:var(--accent);color:var(--text)}
+.dd-tab.active{background:var(--accent);color:#000;border-color:var(--accent)}
+.dd-panel{display:none}
+.dd-panel.active{display:block}
+.dd-stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px}
+.dd-company-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-bottom:24px}
+.dd-company{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px}
+.dd-company-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.dd-company-header h4{font-size:1.1rem;font-weight:700}
+.dd-company-header .ticker{color:var(--text-dim);font-weight:400;font-size:.85rem}
+.dd-metrics{display:flex;gap:20px;margin-bottom:12px;font-size:.85rem;color:var(--text-dim);flex-wrap:wrap}
+.dd-metrics strong{color:var(--text)}
+.dd-company p{font-size:.9rem;color:var(--text-dim);line-height:1.7}
+.dd-growth{margin-top:12px;padding:12px;background:var(--surface2);border-radius:8px;font-size:.85rem;color:var(--accent);line-height:1.6}
+.dd-dynamics{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent2);border-radius:12px;padding:24px}
+.dd-dynamics h4{font-size:1rem;margin-bottom:10px;color:var(--accent2)}
+.dd-dynamics p{font-size:.9rem;color:var(--text-dim);line-height:1.8}
+.dd-overview{margin-bottom:20px}
+
 /* Responsive */
 @media(max-width:768px){
 header h1{font-size:2rem}
@@ -232,6 +254,138 @@ header h1{font-size:2rem}
 <div class="moat-score" style="color:var(--amber)">6.4</div>
 <div class="moat-bar"><div class="moat-bar-fill" style="width:64%;background:var(--amber)"></div></div>
 <div class="moat-detail">AI enhances data products (better analytics) but threatens media (content summarization). Data companies are AI beneficiaries; media are AI casualties.</div>
+</div>
+</div>
+</section>
+
+<!-- Sector Deep Dives -->
+<section>
+<h2>Sector <span>Deep Dives</span></h2>
+<p style="color:var(--text-dim);margin-bottom:24px;font-size:.95rem">Click a sector to explore company profiles, competitive dynamics, and growth projections for the three most defensible B2B data verticals.</p>
+
+<div class="deep-dive-tabs">
+<button class="dd-tab active" data-sector="insurance">🛡️ Insurance Data</button>
+<button class="dd-tab" data-sector="healthcare">🏥 Healthcare Data</button>
+<button class="dd-tab" data-sector="cre">🏢 Commercial Real Estate</button>
+</div>
+
+<!-- Insurance -->
+<div class="dd-panel active" id="dd-insurance">
+<div class="dd-overview">
+<div class="dd-stat-row">
+<div class="stat-card"><div class="label">Sector TAM</div><div class="value accent">$48B</div><div class="detail">Growing 9% CAGR through 2030</div></div>
+<div class="stat-card"><div class="label">Avg EBITDA Margin</div><div class="value green">52%</div><div class="detail">Highest among data subsectors</div></div>
+<div class="stat-card"><div class="label">Switching Cost Index</div><div class="value accent">9.6/10</div><div class="detail">Regulatory mandates + workflow lock-in</div></div>
+<div class="stat-card"><div class="label">AI Upside</div><div class="value green">High</div><div class="detail">Predictive underwriting, fraud detection</div></div>
+</div>
+</div>
+<div class="dd-content">
+<div class="dd-company-grid">
+<div class="dd-company">
+<div class="dd-company-header"><h4>Verisk Analytics <span class="ticker">VRSK</span></h4><span class="tag data-tag">Dominant</span></div>
+<div class="dd-metrics"><span><strong>Rev:</strong> $2.8B</span><span><strong>EBITDA:</strong> 54%</span><span><strong>MCap:</strong> $42B</span></div>
+<p>The undisputed king of insurance data. ISO actuarial data dates to 1971 — no one can replicate 50+ years of loss-cost history. Supplies rate-making data to 99% of US P&C insurers. Their Extreme Event Solutions (formerly AIR Worldwide) models catastrophe risk for the entire industry. Recently divested the Wood Mackenzie energy unit to sharpen focus. Moat: regulatory mandate + irreplaceable historical data.</p>
+<div class="dd-growth"><strong>Growth thesis:</strong> AI-powered predictive underwriting, climate risk modeling expansion, international market penetration (EU Solvency II compliance data).</div>
+</div>
+<div class="dd-company">
+<div class="dd-company-header"><h4>Guidewire Software <span class="ticker">GWRE</span></h4><span class="tag data-tag">Platform</span></div>
+<div class="dd-metrics"><span><strong>Rev:</strong> $980M</span><span><strong>EBITDA:</strong> 18%</span><span><strong>MCap:</strong> $16B</span></div>
+<p>The operating system of insurance. Core platform (ClaimCenter, PolicyCenter, BillingCenter) runs ~500 P&C carriers globally. Cloud transition driving margin expansion from 12% → projected 30%+ by 2027. Data flywheel: more carriers on platform → richer anonymized benchmarking data → stronger analytics → more carriers. Competitors (Duck Creek, Majesco) lack the install base to match.</p>
+<div class="dd-growth"><strong>Growth thesis:</strong> Cloud ARR inflection, analytics marketplace, embedded insurance APIs for insurtechs.</div>
+</div>
+<div class="dd-company">
+<div class="dd-company-header"><h4>Zywave (PE-backed)</h4><span class="tag data-tag">Niche</span></div>
+<div class="dd-metrics"><span><strong>Rev:</strong> ~$400M</span><span><strong>EBITDA:</strong> ~35%</span><span><strong>MCap:</strong> ~$3B (est)</span></div>
+<p>B2B insurance broker platform — powers 15,000+ agencies with quoting, compliance content, and loss-run analytics. Clearlake Capital assembled via 5+ bolt-on acquisitions. Sticky because brokers build client workflows around it. Represents the "picks and shovels" layer of insurance distribution data.</p>
+<div class="dd-growth"><strong>Growth thesis:</strong> Broker consolidation → larger clients → higher ARPU. AI-assisted risk assessment for small commercial.</div>
+</div>
+</div>
+<div class="dd-dynamics">
+<h4>Competitive Dynamics</h4>
+<p>Insurance data is an oligopoly: Verisk owns actuarial/catastrophe, Guidewire owns core systems, and a long tail of niche players (LexisNexis Risk, TransUnion Insurance, CCC Intelligent Solutions for auto claims) fill adjacent niches. New entrants face a cold-start problem — you need 20+ years of claims data to be credible. The regulatory layer (state insurance commissions mandate ISO data) creates a legal moat on top of the data moat. <strong>Disruption risk: Very Low.</strong></p>
+</div>
+</div>
+</div>
+
+<!-- Healthcare -->
+<div class="dd-panel" id="dd-healthcare">
+<div class="dd-overview">
+<div class="dd-stat-row">
+<div class="stat-card"><div class="label">Sector TAM</div><div class="value accent">$62B</div><div class="detail">Growing 12% CAGR through 2030</div></div>
+<div class="stat-card"><div class="label">Avg EBITDA Margin</div><div class="value green">38%</div><div class="detail">Expanding with cloud + AI adoption</div></div>
+<div class="stat-card"><div class="label">Switching Cost Index</div><div class="value accent">9.1/10</div><div class="detail">EHR lock-in + clinical validation</div></div>
+<div class="stat-card"><div class="label">AI Upside</div><div class="value green">Very High</div><div class="detail">Clinical decision support, drug discovery</div></div>
+</div>
+</div>
+<div class="dd-content">
+<div class="dd-company-grid">
+<div class="dd-company">
+<div class="dd-company-header"><h4>Veeva Systems <span class="ticker">VEEV</span></h4><span class="tag data-tag">Dominant</span></div>
+<div class="dd-metrics"><span><strong>Rev:</strong> $2.4B</span><span><strong>EBITDA:</strong> 40%</span><span><strong>MCap:</strong> $36B</span></div>
+<p>The Salesforce of life sciences. Veeva Vault (clinical, regulatory, quality docs) is used by 19 of the top 20 pharma companies. CRM for pharma reps is the original cash cow; Vault is the growth engine. Moving off Salesforce infrastructure to their own platform by 2030 — a rare company confident enough to leave its own foundation. Data products (Compass, Crossix, Link) are the emerging moat layer.</p>
+<div class="dd-growth"><strong>Growth thesis:</strong> Vault expansion into medtech/cosmetics, real-world data commercialization, international rollout to mid-market biopharma.</div>
+</div>
+<div class="dd-company">
+<div class="dd-company-header"><h4>Health Catalyst <span class="ticker">HCAT</span></h4><span class="tag data-tag">Platform</span></div>
+<div class="dd-metrics"><span><strong>Rev:</strong> $310M</span><span><strong>EBITDA:</strong> -5%</span><span><strong>MCap:</strong> $1.2B</span></div>
+<p>Data platform for health systems — ingests EHR, claims, and operational data into a unified DOS (Data Operating System). Powers clinical analytics and cost optimization for 600+ hospitals. Not yet profitable but approaching breakeven with expanding technology revenue (higher margins than services). The healthcare data infrastructure play for organizations drowning in siloed data.</p>
+<div class="dd-growth"><strong>Growth thesis:</strong> Path to profitability via tech revenue mix shift, AI clinical decision tools, population health analytics mandated by value-based care.</div>
+</div>
+<div class="dd-company">
+<div class="dd-company-header"><h4>FDB (First Databank, Hearst)</h4><span class="tag data-tag">Niche Monopoly</span></div>
+<div class="dd-metrics"><span><strong>Rev:</strong> ~$350M</span><span><strong>EBITDA:</strong> ~45%</span><span><strong>MCap:</strong> Private</span></div>
+<p>The invisible giant of drug data. FDB's MedKnowledge powers drug interaction checks in virtually every US EHR, pharmacy system, and e-prescribing platform. When a pharmacist gets an interaction alert, it's almost certainly FDB data. Duopoly with Wolters Kluwer's Medi-Span, but FDB has the larger install base. Clinical editorial team of 100+ pharmacists creates an irreplaceable human moat.</p>
+<div class="dd-growth"><strong>Growth thesis:</strong> Precision dosing algorithms, international expansion, embedded clinical AI, genomic-drug interaction data.</div>
+</div>
+<div class="dd-company">
+<div class="dd-company-header"><h4>Zynx Health (Hearst)</h4><span class="tag data-tag">Clinical</span></div>
+<div class="dd-metrics"><span><strong>Rev:</strong> ~$80M</span><span><strong>EBITDA:</strong> ~40%</span><span><strong>MCap:</strong> Private</span></div>
+<p>Evidence-based clinical decision support. Zynx order sets are embedded in major EHR systems (Epic, Cerner/Oracle Health) and used by 1,500+ hospitals. Translates clinical evidence into actionable care guidelines that reduce variation and improve outcomes. Unique because the content requires physician editorial boards — pure tech can't replicate clinical judgment curation.</p>
+<div class="dd-growth"><strong>Growth thesis:</strong> AI-assisted guideline generation, real-time evidence updates, ambulatory care expansion.</div>
+</div>
+</div>
+<div class="dd-dynamics">
+<h4>Competitive Dynamics</h4>
+<p>Healthcare data is the most fragmented and highest-growth B2B data vertical. Three layers: (1) Clinical reference data (FDB, Zynx, MCG — oligopolies within niches), (2) Platforms (Veeva for pharma, Health Catalyst for providers), (3) Real-world data/analytics (Flatiron, Tempus, Komodo Health). The clinical validation requirement — FDA expectations, peer-reviewed evidence — creates years-long barriers to entry. AI is an accelerant here, not a disruptor: you need the data to train the models. <strong>Disruption risk: Low. Growth potential: Highest of all sectors.</strong></p>
+</div>
+</div>
+</div>
+
+<!-- CRE -->
+<div class="dd-panel" id="dd-cre">
+<div class="dd-overview">
+<div class="dd-stat-row">
+<div class="stat-card"><div class="label">Sector TAM</div><div class="value accent">$28B</div><div class="detail">Growing 8% CAGR through 2030</div></div>
+<div class="stat-card"><div class="label">Avg EBITDA Margin</div><div class="value green">34%</div><div class="detail">CoStar margins expanding rapidly</div></div>
+<div class="stat-card"><div class="label">Switching Cost Index</div><div class="value accent">7.8/10</div><div class="detail">Data depth + workflow integration</div></div>
+<div class="stat-card"><div class="label">AI Upside</div><div class="value amber">Moderate</div><div class="detail">Valuation models, lease abstraction</div></div>
+</div>
+</div>
+<div class="dd-content">
+<div class="dd-company-grid">
+<div class="dd-company">
+<div class="dd-company-header"><h4>CoStar Group <span class="ticker">CSGP</span></h4><span class="tag data-tag">Dominant</span></div>
+<div class="dd-metrics"><span><strong>Rev:</strong> $2.7B</span><span><strong>EBITDA:</strong> 22%</span><span><strong>MCap:</strong> $31B</span></div>
+<p>The Bloomberg Terminal of commercial real estate. CoStar's database covers 6M+ commercial properties across 390+ markets — assembled by 1,800+ researchers who physically visit and photograph properties. This human-sourced data moat is nearly impossible to replicate at scale. LoopNet (listing marketplace) and Apartments.com (multifamily) create consumer-facing network effects that feed back into the data layer. Andy Florance has built this over 30 years.</p>
+<div class="dd-growth"><strong>Growth thesis:</strong> Homes.com residential push ($1B+ investment), international expansion, AI-powered property valuation models, Ten-X auction platform scaling.</div>
+</div>
+<div class="dd-company">
+<div class="dd-company-header"><h4>MSCI — Real Assets <span class="ticker">MSCI</span></h4><span class="tag data-tag">Analytics</span></div>
+<div class="dd-metrics"><span><strong>Rev:</strong> $700M (segment)</span><span><strong>EBITDA:</strong> ~42%</span><span><strong>MCap:</strong> Part of $48B MSCI</span></div>
+<p>MSCI Real Capital Analytics (RCA) tracks every significant CRE transaction globally — the definitive source for deal comp data. MSCI's real estate indices (formerly IPD) are the benchmark for institutional CRE portfolio performance. Used by sovereign wealth funds, pension funds, and REITs for allocation decisions. When institutions need to benchmark CRE returns, they use MSCI — full stop.</p>
+<div class="dd-growth"><strong>Growth thesis:</strong> Climate risk analytics for real estate portfolios, private asset transparency (regulators demanding it), ESG scoring for buildings.</div>
+</div>
+<div class="dd-company">
+<div class="dd-company-header"><h4>Yardi Systems (Private)</h4><span class="tag data-tag">Platform</span></div>
+<div class="dd-metrics"><span><strong>Rev:</strong> ~$1.5B</span><span><strong>EBITDA:</strong> ~35%</span><span><strong>MCap:</strong> ~$15B (est)</span></div>
+<p>The ERP of real estate. Yardi Voyager manages property operations for 30,000+ real estate companies — asset management, accounting, leasing, maintenance. Generates a massive exhaust of operational data (rent rolls, occupancy, cap rates) that feeds Yardi Matrix, their analytics product. Privately held by founder Anant Yardi — no pressure to sacrifice R&D for quarterly earnings. The operational + analytics combo is the Verisk playbook applied to CRE.</p>
+<div class="dd-growth"><strong>Growth thesis:</strong> AI-powered lease abstraction, predictive maintenance, smart building IoT integration, expanding from residential to all asset classes.</div>
+</div>
+</div>
+<div class="dd-dynamics">
+<h4>Competitive Dynamics</h4>
+<p>CRE data is a three-layer market: (1) Property data + analytics (CoStar dominant for listings/comps, MSCI for institutional benchmarks), (2) Operating systems (Yardi, MRI Software, RealPage — now under Thoma Bravo), (3) Specialty verticals (Reonomy for ownership data, Cherre for data integration). CoStar's moat is deepest because of the physical research army — you can't scrape what doesn't exist online. The residential push (Homes.com vs Zillow) is a calculated $1B+ bet that could either double CoStar's TAM or prove a costly distraction. <strong>Disruption risk: Low-Moderate. AI could automate property research but can't replace proprietary transaction data.</strong></p>
+</div>
 </div>
 </div>
 </section>
@@ -374,6 +528,15 @@ new Chart(document.getElementById('mcapChart'),{type:'line',data:{labels:years,d
 const dataAgg=years.map(function(_,i){return companies.filter(function(c){return c.sector==='data'&&c.data[i]!=null}).reduce(function(s,c){return s+c.data[i]},0)});
 const mediaAgg=years.map(function(_,i){return companies.filter(function(c){return c.sector==='media'}).reduce(function(s,c){return s+(c.data[i]||0)},0)});
 new Chart(document.getElementById('sectorChart'),{type:'line',data:{labels:years,datasets:[{label:'B2B Data Aggregate',data:dataAgg,borderColor:'#00d4aa',backgroundColor:'#00d4aa15',borderWidth:3,pointRadius:0,pointHoverRadius:6,pointHoverBackgroundColor:'#00d4aa',tension:0.35,fill:true},{label:'Traditional Media Aggregate',data:mediaAgg,borderColor:'#6366f1',backgroundColor:'#6366f115',borderWidth:3,pointRadius:0,pointHoverRadius:6,pointHoverBackgroundColor:'#6366f1',tension:0.35,fill:true}]},options:baseOpts});
+// Deep Dive Tabs
+document.querySelectorAll('.dd-tab').forEach(function(tab){
+tab.addEventListener('click',function(){
+document.querySelectorAll('.dd-tab').forEach(function(t){t.classList.remove('active')});
+document.querySelectorAll('.dd-panel').forEach(function(p){p.classList.remove('active')});
+tab.classList.add('active');
+document.getElementById('dd-'+tab.dataset.sector).classList.add('active');
+});
+});
 })();
 </script>
 </body>
